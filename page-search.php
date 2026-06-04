@@ -1,4 +1,5 @@
 <?php
+  /* Template Name: Search */
   $site_language = get_theme_mod( 'samakal_site_language', 'bn' );
   $site_name = get_bloginfo('name');
   $url = esc_url( get_permalink() );
@@ -19,6 +20,8 @@
   }
   $link_preview_image = get_field('link_preview_image');
   $default_link_preview_image = get_theme_mod( 'samakal_default_link_preview_image' );
+  $q = $_GET['q'] ?? '';
+  $google_cse_id = get_theme_mod( 'samakal_google_cse_id' );
 ?>
 <!doctype html>
 <html lang="<?php echo $site_language; ?>">
@@ -63,20 +66,30 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <div class="DSinglePageT">
-              <h1><?php echo $page_title; ?></h1>
+              <h1><?php echo ( $site_language === 'bn' ) ? 'অনুসন্ধানের ফলাফল' : 'Search Result:'; ?> - <?php echo esc_html($q); ?></h1>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
-            <div class="DSinglePageSec">
-              <?php the_content(); ?>
+            <div id="cse-search-results">
+              <script type="text/javascript">
+                (function () {
+                	var cx = '<?php echo $google_cse_id; ?>';
+                	var gcse = document.createElement('script');
+                	gcse.type = 'text/javascript';
+                	gcse.async = true;
+                	gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                	var s = document.getElementsByTagName('script')[0];
+                	s.parentNode.insertBefore(gcse, s);
+                })();
+              </script>
+              <gcse:searchresults-only></gcse:searchresults-only>
             </div>
           </div>
         </div>
       </div>
     </main>
     <?php get_footer(); ?>
-    <script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="461fbb84ff40cde59f91ade2-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"97e9a538c9914fdd98360a02932c1edf","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
   </body>
 </html>

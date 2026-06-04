@@ -1,0 +1,1 @@
+<?php get_404_template(); ?>
