@@ -221,6 +221,7 @@
       </nav>
     </div>
   </div>
+  </div>
   <div id="myHeader2">
     <div id="mobile-nav" class="MobileMenu MobileShow">
       <div class="DMLogo d-flex h-100 align-items-center justify-content-center">
@@ -302,5 +303,4 @@
         } ?>
       </ul>
     </div>
-  </div>
 </header>
